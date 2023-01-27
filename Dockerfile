@@ -11,4 +11,7 @@ WORKDIR /opt/app
 COPY --from=BOB /opt/app/dist ./dist
 COPY --from=BOB /opt/app/node_modules ./node_modules
 COPY package.json yarn.lock ./
+ENV TOKEN 1
+ENV RIOT 1
+ENV OPENAI 1
 CMD ["yarn","start"]
