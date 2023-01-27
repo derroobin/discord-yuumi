@@ -7,11 +7,12 @@ RUN yarn build
 RUN yarn install --prod --frozen-lockfile --prefer-offline
 
 FROM node:16-alpine
+RUN adduser -D node
+USER node
 WORKDIR /opt/app
-COPY --from=BOB /opt/app/dist ./dist
-COPY --from=BOB /opt/app/node_modules ./node_modules
-COPY package.json yarn.lock ./
-ENV TOKEN 1
-ENV RIOT 1
-ENV OPENAI 1
+COPY --from=BOB --chown=node /opt/app/dist ./dist
+COPY --from=BOB --chown=node /opt/app/node_modules ./node_modules
+COPY --chown=node package.json yarn.lock ./
+
+
 CMD ["yarn","start"]

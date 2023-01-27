@@ -111,6 +111,11 @@ ${frage.data}`
         content: `Frage: ${frage.data}
   ${resp.data.choices[0].text}`
       })
-    } catch (e) {}
+    } catch (e) {
+      return await interaction.followUp({
+        ephemeral: true,
+        content: 'Bin gleich wieder da..'
+      })
+    }
   }
 }
