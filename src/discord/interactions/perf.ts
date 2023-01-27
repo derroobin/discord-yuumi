@@ -19,13 +19,15 @@ export const Perf: Command = {
       type: 3,
       name: 'name',
       description: 'a League of Legends username',
-      required: true
+      required: true,
+      max_length: 30
     },
     {
       type: 3,
       name: 'frage',
       description: 'Stelle eine Frage zu dem Spiel',
-      required: true
+      required: true,
+      max_length: 50
     }
   ],
   run: async (client: Client, interaction: CommandInteraction) => {
@@ -94,19 +96,21 @@ Beantworte nur Fragen zu diesem Spiel.
 
 ${frage.data}`
 
-    const resp = await createCompletion(prompt)
+    try {
+      const resp = await createCompletion(prompt)
 
-    if (resp.data.choices?.length < 1) {
-      return await interaction.followUp({
+      if (resp.data.choices?.length < 1) {
+        return await interaction.followUp({
+          ephemeral: true,
+          content: 'Fehler Text'
+        })
+      }
+
+      await interaction.followUp({
         ephemeral: true,
-        content: 'Fehler Text'
+        content: `Frage: ${frage.data}
+  ${resp.data.choices[0].text}`
       })
-    }
-
-    await interaction.followUp({
-      ephemeral: true,
-      content: `Frage: ${frage.data}
-${resp.data.choices[0].text}`
-    })
+    } catch (e) {}
   }
 }

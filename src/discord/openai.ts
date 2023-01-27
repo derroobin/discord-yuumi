@@ -5,7 +5,7 @@ export const createCompletion = async (prompt: string) => {
     apiKey: process.env.OPENAI
   })
   const openai = new OpenAIApi(configuration)
-  return openai.createCompletion({
+  return await openai.createCompletion({
     model: 'text-davinci-003',
     prompt,
     temperature: 0.7,
