@@ -7,12 +7,13 @@ RUN yarn build
 RUN yarn install --prod --frozen-lockfile --prefer-offline
 
 FROM node:16-alpine
-RUN addgroup -S node && adduser -S node -G node
-USER node
 WORKDIR /opt/app
-COPY --from=BOB --chown=node:node /opt/app/dist ./dist
-COPY --from=BOB --chown=node:node /opt/app/node_modules ./node_modules
-COPY --chown=node:node package.json yarn.lock ./
+RUN addgroup -S app
+RUN adduser -S app -G app
+USER app
+COPY --from=BOB --chown=app:app /opt/app/dist ./dist
+COPY --from=BOB --chown=app:app /opt/app/node_modules ./node_modules
+COPY --chown=app:app package.json yarn.lock ./
 
 
 CMD ["yarn","start"]
