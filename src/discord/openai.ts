@@ -8,7 +8,8 @@ export const createCompletion = async (prompt: string) => {
   return await openai.createCompletion({
     model: 'text-davinci-003',
     prompt,
-    temperature: 0.7,
-    max_tokens: 200
+    temperature: 0.5,
+    max_tokens: 60,
+    top_p: 0.3
   })
 }
