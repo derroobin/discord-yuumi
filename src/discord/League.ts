@@ -35,11 +35,6 @@ export const MatchSchema = z.object({
         deaths: z.number(),
         assists: z.number(),
         champLevel: z.number(),
-        basicPings: z.number(),
-        allInPings: z.number(),
-        baitPings: z.number(),
-        commandPings: z.number(),
-        dangerPings: z.number(),
         totalDamageDealtToChampions: z.number(),
         teamPosition: z.union([
           z.literal('JUNGLE'),
@@ -48,18 +43,14 @@ export const MatchSchema = z.object({
           z.literal('UTILITY'),
           z.literal('BOTTOM')
         ]),
-        teamEarlySurrendered: z.boolean(),
         teamId: z.number(),
         totalHeal: z.number(),
         totalHealsOnTeammates: z.number(),
         totalMinionsKilled: z.number(),
         totalDamageTaken: z.number(),
-        totalDamageShieldedOnTeammates: z.number(),
-        unrealKills: z.number(),
         visionScore: z.number(),
         win: z.boolean(),
-        killingSprees: z.number(),
-        largestMultiKill: z.number()
+        killingSprees: z.number()
       })
     )
   })
