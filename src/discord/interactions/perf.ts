@@ -1,3 +1,4 @@
+import { match } from 'assert'
 import { ApplicationCommandType, CommandInteraction, Client } from 'discord.js'
 import { z } from 'zod'
 import {
@@ -37,6 +38,8 @@ export const Perf: Command = {
     const frage = await z
       .string()
       .safeParseAsync(interaction.options.get('frage')?.value)
+    const username = interaction.user.username
+
     if (!name.success || !frage.success) {
       return await interaction.followUp({
         ephemeral: true,
@@ -75,6 +78,7 @@ export const Perf: Command = {
     )
 
     if (!matchData.success || matchData.data.info.participants.length < 1) {
+      console.log(matchData)
       return await interaction.followUp({
         ephemeral: true,
         content: 'Fehler bei Matchabfrage'
@@ -88,13 +92,13 @@ export const Perf: Command = {
       .join('\n')
 
     const table = [keys.join(' | '), info].join('\n')
-    const prompt = `Du bist Yuumi, eine magische Katze aus League of Legends, die Fragen sehr lustig beantwortet. Du kannst auch Smileys verwenden.
-Beantworte nur Fragen zu diesem Spiel.
+    const prompt = `Yuumi ist eine magische Katze aus League of Legends, die Fragen sehr lustig beantwortet. Beantworte nur Fragen zu diesem Spiel.
 
     In der folgenden Tabelle siehst du die Statistik aus einem League of Legends Spiel:
     ${table}
 
-${frage.data}`
+${username}:${frage.data}
+Yuumi:`
 
     try {
       const resp = await createCompletion(prompt)

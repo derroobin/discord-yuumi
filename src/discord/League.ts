@@ -36,13 +36,7 @@ export const MatchSchema = z.object({
         assists: z.number(),
         champLevel: z.number(),
         totalDamageDealtToChampions: z.number(),
-        teamPosition: z.union([
-          z.literal('JUNGLE'),
-          z.literal('TOP'),
-          z.literal('MIDDLE'),
-          z.literal('UTILITY'),
-          z.literal('BOTTOM')
-        ]),
+        teamPosition: z.string(),
         teamId: z.number(),
         totalHeal: z.number(),
         totalHealsOnTeammates: z.number(),
